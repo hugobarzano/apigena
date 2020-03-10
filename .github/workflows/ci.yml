@@ -1,0 +1,25 @@
+name: Test and Push Docker Imagen
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run tests
+        run: |
+          make setup
+          make test
+  push:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v1
+      - name: Push image
+        run: |
+          make push user=${{ github.actor }} token=${{ secrets.GITHUB_TOKEN }}
