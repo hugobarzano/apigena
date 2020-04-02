@@ -1,0 +1,22 @@
+{
+  "name": "people",
+  "version": "1.0.0",
+  "description": "Generated app",
+  "main": "server.js",
+  "scripts": {
+    "test": "make test",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "crud",
+    "api"
+  ],
+  "author": "chbc",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "swagger-routes-express": "^3.1.2",
+    "swagger-ui-express": "^4.1.4",
+    "yamljs": "^0.3.0"
+  }
+}
