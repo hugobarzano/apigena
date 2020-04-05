@@ -1,0 +1,121 @@
+
+swagger: "2.0"
+info:
+  description: This is the swagger file that defines generated api
+  version: "dev/0.0.1"
+  title: API-Cats Generated
+consumes:
+  - application/json
+produces:
+  - application/json
+
+definitions:
+  CATS:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        description: Id of the element
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      
+      age:
+        type: number
+
+      car:
+        type: string
+
+      name:
+        type: string
+
+
+
+#base path for server application
+basePath: /api
+# Paths supported by the server application
+paths:
+  /cats:
+    get:
+      operationId: listAll
+      tags:
+        - CATS
+      summary: Read the entire list of cats
+      description: Read the list of cats
+      responses:
+        200:
+          description: Successfully read cats list operation
+          schema:
+            $ref: '#/definitions/CATS'
+    post:
+      operationId: createOne
+      tags:
+        - CATS
+      summary: Create a CATS and add it to the cats list
+      description: Create a new CATS in the cats list
+      parameters:
+        - name: object
+          in: body
+          description: CATS to create
+          required: True
+          schema:
+            $ref: '#/definitions/CATS'
+      responses:
+        201:
+          description: Successfully created CATS in list
+
+  /cats/{id}:
+    get:
+      operationId: getOne
+      tags:
+        - CATS 
+      summary: Read one CATS from the cats list
+      description: Read one CATS from the cats list
+      parameters:
+        - name: id
+          in: path
+          description: Unique model identifier for CATS 
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read person from people list operation
+          schema:
+            $ref: '#/definitions/CATS'
+    put:
+      operationId: updateOne
+      tags:
+        - CATS
+      summary: Update a CATS in cats 
+      description: Update a CATS in cats 
+      parameters:
+        - name: id
+          in: path
+          description: Unique model identifier for CATS
+          type: string
+          required: True
+        - name: object
+          in: body
+          schema:
+            $ref: '#/definitions/CATS'
+      responses:
+        200:
+          description: Successfully updated CATS
+    delete:
+      operationId: deleteOne
+      tags:
+        - CATS
+      summary: Delete a CATS from the cats list
+      description: Delete a person
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: True
+          description: Unique model identifier for CATS
+      responses:
+        200:
+          description: Successfully deleted a CATS

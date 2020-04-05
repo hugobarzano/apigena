@@ -1,0 +1,121 @@
+
+swagger: "2.0"
+info:
+  description: This is the swagger file that defines generated api
+  version: "dev/0.0.1"
+  title: API-Cats2 Generated
+consumes:
+  - application/json
+produces:
+  - application/json
+
+definitions:
+  CATS2:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        description: Id of the element
+      createdAt:
+        type: string
+      updatedAt:
+        type: string
+      
+      age:
+        type: number
+
+      car:
+        type: string
+
+      name:
+        type: string
+
+
+
+#base path for server application
+basePath: /api
+# Paths supported by the server application
+paths:
+  /cats2:
+    get:
+      operationId: listAll
+      tags:
+        - CATS2
+      summary: Read the entire list of cats2
+      description: Read the list of cats2
+      responses:
+        200:
+          description: Successfully read cats2 list operation
+          schema:
+            $ref: '#/definitions/CATS2'
+    post:
+      operationId: createOne
+      tags:
+        - CATS2
+      summary: Create a CATS2 and add it to the cats2 list
+      description: Create a new CATS2 in the cats2 list
+      parameters:
+        - name: object
+          in: body
+          description: CATS2 to create
+          required: True
+          schema:
+            $ref: '#/definitions/CATS2'
+      responses:
+        201:
+          description: Successfully created CATS2 in list
+
+  /cats2/{id}:
+    get:
+      operationId: getOne
+      tags:
+        - CATS2 
+      summary: Read one CATS2 from the cats2 list
+      description: Read one CATS2 from the cats2 list
+      parameters:
+        - name: id
+          in: path
+          description: Unique model identifier for CATS2 
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read person from people list operation
+          schema:
+            $ref: '#/definitions/CATS2'
+    put:
+      operationId: updateOne
+      tags:
+        - CATS2
+      summary: Update a CATS2 in cats2 
+      description: Update a CATS2 in cats2 
+      parameters:
+        - name: id
+          in: path
+          description: Unique model identifier for CATS2
+          type: string
+          required: True
+        - name: object
+          in: body
+          schema:
+            $ref: '#/definitions/CATS2'
+      responses:
+        200:
+          description: Successfully updated CATS2
+    delete:
+      operationId: deleteOne
+      tags:
+        - CATS2
+      summary: Delete a CATS2 from the cats2 list
+      description: Delete a person
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: True
+          description: Unique model identifier for CATS2
+      responses:
+        200:
+          description: Successfully deleted a CATS2
