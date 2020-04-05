@@ -24,8 +24,13 @@ func PathExists(path string) bool {
 	return info.IsDir()
 }
 
-func ReadSpec(filePath string)([]byte,error)  {
-	return readFile(filePath)
+func ReadSpec(filePath string)[]byte  {
+	data, err:=readFile(filePath)
+	if err!=nil{
+		log.Println(err.Error())
+		return nil
+	}
+	return data
 }
 
 func GetReader(filePath string)(*os.File,error)  {

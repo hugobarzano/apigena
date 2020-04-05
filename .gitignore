@@ -391,3 +391,4 @@ dist
 # vendor/
 gen/.idea
 gen/outputs
+outputs/

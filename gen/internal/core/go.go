@@ -8,8 +8,8 @@ import (
 )
 
 type golang struct{
-	model []byte
-	files map[string][]byte
+customNature
+	model      []byte
 }
 
 func (g *golang)Init()Generator{
@@ -17,7 +17,15 @@ func (g *golang)Init()Generator{
 	return g
 }
 
+func (g *golang) WithName(name string) Generator                          {
+	g.name=name
+	return g
+	}
 
+func (g *golang) WithPort(port int) Generator                          {
+	g.port=port
+	return g
+}
 
 
 func (g *golang) WithInputSpec(spec interface{}) Generator  {

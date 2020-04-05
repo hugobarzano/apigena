@@ -2,7 +2,9 @@ package commons
 
 import (
 	"bytes"
+	"fmt"
 	"log"
+	"strings"
 	"text/template"
 )
 
@@ -21,16 +23,16 @@ type ApiSpec struct{
 	ApiPkg string
 }
 
-func GenerateApiSpecFile(title, apiName, modelName, pkg string,data map[string]interface{})[]byte  {
+func GenerateApiSpecFile(name, pkg string,data map[string]interface{})[]byte  {
 	tpl,err:=template.New("Spec").Parse(SpecTemplate)
 	if err != nil {
 		log.Fatalln(err)
 		return nil
 	}
 	api:=ApiSpec{
-		Title: title,
-		ApiName: apiName,
-		ModelName:modelName,
+		Title: getTitle(name),
+		ApiName: getApiName(name),
+		ModelName:getModelName(name),
 		ApiPkg: pkg,
 		ModelData: string(generateModelProperties(data)),
 	}
@@ -40,6 +42,18 @@ func GenerateApiSpecFile(title, apiName, modelName, pkg string,data map[string]i
 		log.Fatalln(err)
 	}
 	return buf.Bytes()
+}
+
+func getTitle(name string)string{
+	return strings.Title(fmt.Sprintf("API-%v generated",name))
+}
+
+func getModelName(name string)string{
+	return strings.ToUpper(name)
+}
+
+func getApiName(name string)string{
+	return strings.ToLower(name)
 }
 
 func generateModelProperties(spec map[string]interface{})[]byte {

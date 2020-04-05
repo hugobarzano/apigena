@@ -17,21 +17,30 @@ const (
 // Generator interface definition
 type Generator interface {
 	Init()Generator
+	WithName(name string) Generator
+	WithPort(port int) Generator
 	WithInputSpec(spec interface{}) Generator
 	WithOutputPath(path string) Generator
 	Generate()
 }
 
-type base struct{}
-func (g *base) Init() Generator                          {return g}
-func (g *base) WithInputSpec(spec interface{}) Generator { return g }
-func (g *base) WithOutputPath(path string) Generator     { return g }
-func (g *base) Generate()                                {}
+type defaultNature struct{}
+func (g *defaultNature) Init() Generator                          {return g}
+func (g *defaultNature) WithName(name string) Generator           {return g}
+func (g *defaultNature) WithPort(port int) Generator           {return g}
+func (g *defaultNature) WithInputSpec(spec interface{}) Generator { return g }
+func (g *defaultNature) WithOutputPath(path string) Generator     { return g }
+func (g *defaultNature) Generate()                                {}
+var DefaultNature = &defaultNature{}
 
 
-
-// DefaultNature
-var DefaultNature = &base{}
+type customNature struct {
+	name string
+	port int
+	spec []byte
+	files map[string][]byte
+	outputPath string
+}
 
 // NewGenerator builds a generator from a given kind
 func NewGenerator(nature Nature) Generator {
