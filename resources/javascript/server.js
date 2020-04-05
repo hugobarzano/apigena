@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 
 const makeApp = () => {
-    const apiDefinition = YAML.load('../spec/spec.yml');
+    const apiDefinition = YAML.load('../spec/gen.yml');
     const connect = connector(api, apiDefinition);
     const app = express();
     app.use('/api/ui', swaggerUi.serve, swaggerUi.setup(apiDefinition));

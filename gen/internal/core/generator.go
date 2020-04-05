@@ -6,39 +6,44 @@ type Nature int32
 const (
 	// Base defines nothing
 	Base Nature = iota
-	// Custom defines psi notifier
-	Custom
+	// Go defines golang generator nature
+	Go
+	// Python
+	Python
+	// JS
+	JS
 )
-
-// BaseGenerator
-var BaseGenerator = &base{}
 
 // Generator interface definition
 type Generator interface {
-	WithTech(tech string) Generator
+	Init()Generator
+	WithInputSpec(spec interface{}) Generator
+	WithOutputPath(path string) Generator
+	Generate()
 }
 
 type base struct{}
-func (g *base) WithTech(tech string) Generator  { return g }
+func (g *base) Init() Generator                          {return g}
+func (g *base) WithInputSpec(spec interface{}) Generator { return g }
+func (g *base) WithOutputPath(path string) Generator     { return g }
+func (g *base) Generate()                                {}
 
 
-type custom struct{
-	tech string
-	spec map[string]interface{}
-}
-func (g *custom) WithTech(tech string) Generator  {
-	g.tech=tech
-	return g }
+
+// DefaultNature
+var DefaultNature = &base{}
 
 // NewGenerator builds a generator from a given kind
 func NewGenerator(nature Nature) Generator {
 	switch nature {
-	case Custom:
-		return &custom{
-			spec: map[string]interface{}{},
-		}
+	case Go:
+		return &golang{}
+	case Python:
+		return &python{}
+	case JS:
+		return &javascript{}
 	default:
-		return BaseGenerator
+		return DefaultNature
 	}
 }
 

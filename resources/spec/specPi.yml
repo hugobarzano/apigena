@@ -8,6 +8,22 @@ consumes:
 produces:
   - application/json
 
+
+definitions:
+  model:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        description: Id of the element
+      lname:
+        type: string
+      timestamp:
+        type: string
+
+
 basePath: /api
 
 # Paths supported by the server application
@@ -19,31 +35,11 @@ paths:
         - People
       summary: Read the entire list of people
       description: Read the list of people
-      parameters:
-        - name: length
-          in: query
-          type: integer
-          description: Number of people to get from people
-          required: false
-        - name: offset
-          in: query
-          type: integer
-          description: Offset from beginning of list where to start gathering people
-          required: false
       responses:
         200:
-          description: Successfully read people list operation
+          type: array
           schema:
-            type: array
-            items:
-              properties:
-                id:
-                  type: string
-                lname:
-                  type: string
-                timestamp:
-                  type: string
-
+            $ref: '#/definitions/model'
     post:
       operationId: api.createOne
       tags:

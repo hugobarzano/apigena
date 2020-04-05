@@ -8,17 +8,13 @@ app = connexion.App(__name__, specification_dir='../spec/')
 # Read the swagger.yml file to configure the endpoints
 app.add_api('../spec/specPi.yml')
 
-
-# Create a URL route in our application for "/"
 @app.route('/')
-def home():
+def index():
     """
     This function just responds to the browser ULR
-    localhost:5000/
-    :return:        the rendered template 'home.html'
+    :return:        the rendered template 'index.html'
     """
     return render_template('index.html')
 
-# If we're running in stand alone mode, run the application
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3002, debug=True)
