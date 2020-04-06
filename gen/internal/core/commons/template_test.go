@@ -13,7 +13,7 @@ func Test_template(t *testing.T) {
 		"age": 1,
 		"dead": true,
 	}
-	api:=GenerateApiSpecFile("titleeeee","people","People","",input)
+	api:=GenerateApiSpecFile("name","",input)
 
 	fmt.Println(string(api))
 }

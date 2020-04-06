@@ -12,16 +12,21 @@ import (
 
 type python struct {
 	customNature
-	model      map[string]interface{}
 }
 
 func (g *python) Init() Generator {
-	g.files = make(map[string][]byte)
+	g.files=make(map[string][]byte)
+	g.model=make(map[string]interface{})
+	g.spec=make([]byte,0)
 	return g
 }
 
 func (g *python) WithName(name string) Generator {
-	g.name = name
+	if name == ""{
+		g.name=fmt.Sprintf("app%v", "test")
+	}else{
+		g.name=name
+	}
 	return g
 }
 
@@ -41,11 +46,7 @@ func (g *python) WithInputSpec(spec interface{}) Generator {
 }
 
 func (g *python) WithOutputPath(path string) Generator {
-	if g.name != "" {
 		g.outputPath = fmt.Sprintf("%v/%v/%v", path, "python", g.name)
-	} else {
-		g.outputPath = fmt.Sprintf("%v/%v/%v", path, "python","example")
-	}
 	writer.CreateFolder(g.outputPath)
 	specPath := fmt.Sprintf("%v/%v", g.outputPath, "spec")
 	writer.CreateFolder(specPath)
