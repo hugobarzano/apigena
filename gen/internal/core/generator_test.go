@@ -17,5 +17,9 @@ func TestGen(t *testing.T) {
 		fmt.Println(err.Error())
 	}
 
+	res := strings.LastIndex("{a{}}", "}")
+	fmt.Println(res)
+
+
 	fmt.Println(string(model))
 }

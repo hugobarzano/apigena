@@ -37,5 +37,13 @@ func main() {
 		WithPort(3002).
 		WithInputSpec(inputSpec).
 		WithOutputPath(outputDir).Generate()
+
+	GoGene :=core.NewGenerator(core.Go)
+	GoGene.Init().
+		WithName(name).
+		WithPort(3003).
+		WithInputSpec(inputSpec).
+		WithOutputPath(outputDir).Generate()
 }
+
 

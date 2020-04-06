@@ -40,13 +40,14 @@ type customNature struct {
 	spec []byte
 	files map[string][]byte
 	outputPath string
+	model      map[string]interface{}
 }
 
 // NewGenerator builds a generator from a given kind
 func NewGenerator(nature Nature) Generator {
 	switch nature {
 	case Go:
-		return &golang{}
+		return &goApi{}
 	case Python:
 		return &python{}
 	case JS:

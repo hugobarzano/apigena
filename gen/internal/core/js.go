@@ -8,12 +8,10 @@ import (
 	"gen/internal/reader"
 	"gen/internal/writer"
 	"log"
-	"time"
 )
 
 type javascript struct{
 	customNature
-	model      map[string]interface{}
 }
 
 func (g *javascript)Init()Generator{
@@ -24,7 +22,11 @@ func (g *javascript)Init()Generator{
 }
 
 func (g *javascript) WithName(name string) Generator                          {
-	g.name=name
+	if name == ""{
+		g.name=fmt.Sprintf("app%v", "test")
+	}else{
+		g.name=name
+	}
 	return g
 }
 
@@ -44,12 +46,7 @@ func (g *javascript) WithInputSpec(spec interface{}) Generator  {
 
 
 func (g *javascript) WithOutputPath(path string) Generator {
-	if g.name != "" {
 		g.outputPath = fmt.Sprintf("%v/%v/%v", path, "js", g.name)
-	} else {
-		name:= fmt.Sprintf("app-%v", time.Now().String())
-		g.outputPath = fmt.Sprintf("%v/%v/%v", path, "js",name)
-	}
 	writer.CreateFolder(g.outputPath)
 	specPath := fmt.Sprintf("%v/%v", g.outputPath, "spec")
 	writer.CreateFolder(specPath)
