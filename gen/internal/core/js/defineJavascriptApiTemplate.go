@@ -1,6 +1,6 @@
 package js
 
-const JsApiTemplate  = `
+const JsApiTemplate = `
 'use strict';
 
 var DATA = new Map();

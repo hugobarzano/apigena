@@ -7,7 +7,7 @@ import (
 )
 
 func GenerateServer(data map[string]interface{}) []byte {
-	tpl,err:=template.New("Server").Parse(GoServerTemplate)
+	tpl, err := template.New("Server").Parse(GoServerTemplate)
 	var buf bytes.Buffer
 	err = tpl.Execute(&buf, data)
 	if err != nil {

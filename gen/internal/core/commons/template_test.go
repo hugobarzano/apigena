@@ -8,12 +8,12 @@ import (
 
 func Test_template(t *testing.T) {
 
-	input:=map[string]interface{}{
-		"name":"this iis the name",
-		"age": 1,
+	input := map[string]interface{}{
+		"name": "this iis the name",
+		"age":  1,
 		"dead": true,
 	}
-	api:=GenerateApiSpecFile("name","",input)
+	api := GenerateApiSpecFile("name", "", input)
 
 	fmt.Println(string(api))
 }
@@ -33,16 +33,15 @@ const ExpectedProperties = `
 `
 
 func TestGenerateApiSpecFile(t *testing.T) {
-	input:=map[string]interface{}{
-		"name":"this iis the name",
-		"age": 1,
+	input := map[string]interface{}{
+		"name": "this iis the name",
+		"age":  1,
 		"dead": true,
 	}
 
-	spec:= generateProperties(input)
-	assert.Equal(t, ExpectedProperties,string(spec))
+	spec := generateProperties(input)
+	assert.Equal(t, ExpectedProperties, string(spec))
 
-
-	model:=generateModelProperties(input)
+	model := generateModelProperties(input)
 	fmt.Println(string(model))
 }

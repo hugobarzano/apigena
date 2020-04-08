@@ -7,7 +7,7 @@ import (
 )
 
 func GenerateApi(data map[string]interface{}) []byte {
-	tpl,err:=template.New("Api").Parse(GoApiTemplate)
+	tpl, err := template.New("Api").Parse(GoApiTemplate)
 	var buf bytes.Buffer
 	err = tpl.Execute(&buf, data)
 	if err != nil {

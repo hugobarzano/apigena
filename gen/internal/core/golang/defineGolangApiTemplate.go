@@ -1,6 +1,6 @@
 package golang
 
-const GoApiTemplate  = `
+const GoApiTemplate = `
 package api
 
 import (

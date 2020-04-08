@@ -1,6 +1,6 @@
 package py
 
-const PythonRequirements  = `
+const PythonRequirements = `
 attrs==19.3.0
 certifi==2019.11.28
 chardet==3.0.4
@@ -25,4 +25,3 @@ urllib3==1.25.8
 Werkzeug==1.0.1
 zipp==3.1.0
 `
-

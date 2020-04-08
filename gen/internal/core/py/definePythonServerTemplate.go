@@ -1,6 +1,6 @@
 package py
 
-const PythonServerTemplate  = `
+const PythonServerTemplate = `
 from flask import render_template
 import connexion
 

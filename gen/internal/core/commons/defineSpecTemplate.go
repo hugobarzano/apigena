@@ -1,11 +1,11 @@
 package commons
 
-const PropertyTemplate   = `{{range $key, $val := .}}
+const PropertyTemplate = `{{range $key, $val := .}}
       {{$key}}:
         type: {{$val}}
 {{end}}`
 
-const ModelPropertiesTemplate  = `{{define "ModelProperties"}}
+const ModelPropertiesTemplate = `{{define "ModelProperties"}}
     type: object
     required:
       - id

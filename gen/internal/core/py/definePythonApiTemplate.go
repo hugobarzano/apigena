@@ -1,5 +1,6 @@
 package py
-const PythonApiTemplate  = `
+
+const PythonApiTemplate = `
 """
 Api Source Code
 """

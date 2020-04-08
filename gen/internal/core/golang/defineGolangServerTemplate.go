@@ -1,6 +1,6 @@
 package golang
 
-const GoServerTemplate  = `
+const GoServerTemplate = `
 package main
 
 import (
@@ -9,8 +9,19 @@ import (
 	"github.com/gorilla/handlers"
 	"log"
 	"net/http"
+	"text/template"
 	"{{.api}}/api"
 )
+
+func index(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		t, err := template.ParseFiles("templates/index.html")
+		if err != nil {
+			fmt.Fprintf(w, "Unable to load template")
+		}
+		t.Execute(w, "")
+}
+
 func main() {
 
 	api.Init()
@@ -18,6 +29,7 @@ func main() {
 	basePath:="api"
 	apiPath:="{{.api}}"
 	route:=fmt.Sprintf("/%v/%v",basePath,apiPath)
+	router.HandleFunc("/", index).Methods(http.MethodGet)
 	router.HandleFunc(route, api.ListAll).Methods(http.MethodGet)
 	router.HandleFunc(route, api.CreateOne).Methods(http.MethodPost)
 	router.HandleFunc(route+"/{id}", api.GetOne).Methods(http.MethodGet)

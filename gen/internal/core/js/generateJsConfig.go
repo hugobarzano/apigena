@@ -6,10 +6,8 @@ import (
 	"text/template"
 )
 
-
-
 func GenerateDependencies(name string) []byte {
-	tpl,err:=template.New("PackageJson").Parse(JsPackageJson)
+	tpl, err := template.New("PackageJson").Parse(JsPackageJson)
 	var buf bytes.Buffer
 	err = tpl.Execute(&buf, name)
 	if err != nil {

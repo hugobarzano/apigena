@@ -16,7 +16,7 @@ const (
 
 // Generator interface definition
 type Generator interface {
-	Init()Generator
+	Init() Generator
 	WithName(name string) Generator
 	WithPort(port int) Generator
 	WithInputSpec(spec interface{}) Generator
@@ -25,26 +25,27 @@ type Generator interface {
 }
 
 type defaultNature struct{}
-func (g *defaultNature) Init() Generator                          {return g}
-func (g *defaultNature) WithName(name string) Generator           {return g}
-func (g *defaultNature) WithPort(port int) Generator           {return g}
+
+func (g *defaultNature) Init() Generator                          { return g }
+func (g *defaultNature) WithName(name string) Generator           { return g }
+func (g *defaultNature) WithPort(port int) Generator              { return g }
 func (g *defaultNature) WithInputSpec(spec interface{}) Generator { return g }
 func (g *defaultNature) WithOutputPath(path string) Generator     { return g }
 func (g *defaultNature) Generate()                                {}
+
 var DefaultNature = &defaultNature{}
 
-
 type customNature struct {
-	name string
-	port int
-	spec []byte
-	files map[string][]byte
+	name       string
+	port       int
+	spec       []byte
+	files      map[string][]byte
 	outputPath string
 	model      map[string]interface{}
 }
 
-// NewGenerator builds a generator from a given kind
-func NewGenerator(nature Nature) Generator {
+// New builds a generator from a given kind
+func New(nature Nature) Generator {
 	switch nature {
 	case Go:
 		return &goApi{}
@@ -56,4 +57,3 @@ func NewGenerator(nature Nature) Generator {
 		return DefaultNature
 	}
 }
-

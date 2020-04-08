@@ -15,23 +15,23 @@ type python struct {
 }
 
 func (g *python) Init() Generator {
-	g.files=make(map[string][]byte)
-	g.model=make(map[string]interface{})
-	g.spec=make([]byte,0)
+	g.files = make(map[string][]byte)
+	g.model = make(map[string]interface{})
+	g.spec = make([]byte, 0)
 	return g
 }
 
 func (g *python) WithName(name string) Generator {
-	if name == ""{
-		g.name=fmt.Sprintf("app%v", "test")
-	}else{
-		g.name=name
+	if name == "" {
+		g.name = fmt.Sprintf("app%v", "test")
+	} else {
+		g.name = name
 	}
 	return g
 }
 
-func (g *python) WithPort(port int) Generator                          {
-	g.port=port
+func (g *python) WithPort(port int) Generator {
+	g.port = port
 	return g
 }
 
@@ -46,10 +46,12 @@ func (g *python) WithInputSpec(spec interface{}) Generator {
 }
 
 func (g *python) WithOutputPath(path string) Generator {
-		g.outputPath = fmt.Sprintf("%v/%v/%v", path, "python", g.name)
+	g.outputPath = fmt.Sprintf("%v/%v/%v", path, "python", g.name)
 	writer.CreateFolder(g.outputPath)
 	specPath := fmt.Sprintf("%v/%v", g.outputPath, "spec")
 	writer.CreateFolder(specPath)
+	templatesPath := fmt.Sprintf("%v/%v", g.outputPath, "templates")
+	writer.CreateFolder(templatesPath)
 	return g
 }
 
@@ -59,8 +61,10 @@ func (g *python) Generate() {
 		g.name,
 		"api.",
 		g.model)
+	g.files["templates/index.html"] = commons.GenerateIndex(
+		`<a href="api/ui" class="navbar-brand"> Checkout API UI</a>`)
 	g.files["api.py"] = py.GenerateApi()
-	g.files["server.py"] = py.GenerateServer(3001)
+	g.files["server.py"] = py.GenerateServer(g.port)
 	g.files["requirements.txt"] = py.GenerateDependencies()
 
 	for key, value := range g.files {

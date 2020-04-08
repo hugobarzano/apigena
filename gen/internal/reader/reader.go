@@ -24,26 +24,26 @@ func PathExists(path string) bool {
 	return info.IsDir()
 }
 
-func ReadSpec(filePath string)[]byte  {
-	data, err:=readFile(filePath)
-	if err!=nil{
+func ReadSpec(filePath string) []byte {
+	data, err := readFile(filePath)
+	if err != nil {
 		log.Println(err.Error())
 		return nil
 	}
 	return data
 }
 
-func GetReader(filePath string)(*os.File,error)  {
-	if ok:= FileExists(filePath);!ok{
-		return nil, errors.New(fmt.Sprintf("File: %v not found",filePath))
+func GetReader(filePath string) (*os.File, error) {
+	if ok := FileExists(filePath); !ok {
+		return nil, errors.New(fmt.Sprintf("File: %v not found", filePath))
 	}
 	return os.Open(filePath)
 }
 
-func readFile(filePath string)([]byte,error)  {
+func readFile(filePath string) ([]byte, error) {
 
-	if ok:= FileExists(filePath);!ok{
-		return nil, errors.New(fmt.Sprintf("File: %v not found",filePath))
+	if ok := FileExists(filePath); !ok {
+		return nil, errors.New(fmt.Sprintf("File: %v not found", filePath))
 	}
 
 	file, err := os.Open(filePath)
@@ -53,11 +53,9 @@ func readFile(filePath string)([]byte,error)  {
 	}
 	defer file.Close()
 
-
 	byteFile, err := ioutil.ReadAll(file)
-	if err != nil{
+	if err != nil {
 		log.Fatal(err.Error())
 	}
 	return byteFile, err
 }
-

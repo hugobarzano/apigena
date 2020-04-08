@@ -7,7 +7,7 @@ import (
 )
 
 func GenerateDependencies(data map[string]interface{}) []byte {
-	tpl,err:=template.New("Modules").Parse(GoModulesTemplate)
+	tpl, err := template.New("Modules").Parse(GoModulesTemplate)
 	var buf bytes.Buffer
 	err = tpl.Execute(&buf, data)
 	if err != nil {

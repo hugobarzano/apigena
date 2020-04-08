@@ -7,7 +7,7 @@ import (
 )
 
 func GenerateServer(port int) []byte {
-	tpl,err:=template.New("Server").Parse(JsServerTemplate)
+	tpl, err := template.New("Server").Parse(JsServerTemplate)
 	var buf bytes.Buffer
 	err = tpl.Execute(&buf, port)
 	if err != nil {
@@ -16,6 +16,3 @@ func GenerateServer(port int) []byte {
 	}
 	return buf.Bytes()
 }
-
-
-
