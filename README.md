@@ -18,7 +18,7 @@ From a high level representation model like this:
 }
 ```
 
-this software produces a swagger specification file that is used by the servers to define api end-points.
+This software produces a swagger specification file that is used by the servers to define api end-points.
 Generator produces source code to satisfy CRUD operations over the generated APIs. In Addition, specification files
 can render to server user interfaces from APIs
 
