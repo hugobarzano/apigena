@@ -190,6 +190,10 @@ To run students API go based:
 In addition, swagger and the generated spec file can be used to produces another resources or 
 customize generated base code. Checkout [Swagger documentation](https://swagger.io/). 
 
+
+##### Related works
+
+- [Rest && Test Generator](https://github.com/hugobarzano/restandtestgenerator)
 <br>
 <br>
 <hr>
