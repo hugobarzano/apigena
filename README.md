@@ -3,7 +3,7 @@
 ## Description
 Desarrollo De Lineas De Producto Software.
  
-This project aims to api/rest generation from a data model represented with a json 
+This project aims to API/Rest generation from a data model represented with a json 
 file format. This generator is develop with golang using interfaces and templates engine.
 Can produce API/Rest services in Go, JavaScript and Python technologies. 
 
