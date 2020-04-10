@@ -67,9 +67,9 @@ func (g *goApi) WithInputSpec(spec interface{}) Generator {
 
 func customizeModel(inputModel []byte) []byte {
 	stringModel := string(inputModel)
-	lastIndex := strings.LastIndex(stringModel, "}")
 	IDField := "    ID string      `json:\"id\" yml:\"id\"` \n}"
-	return []byte(stringModel[:lastIndex] + IDField + stringModel[lastIndex+1:])
+	customModel := strings.Replace(stringModel,"}",IDField,1)
+	return []byte(customModel)
 }
 
 func (g *goApi) WithOutputPath(path string) Generator {
