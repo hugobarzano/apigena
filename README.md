@@ -18,7 +18,7 @@ From a high level representation model like this:
 }
 ```
 
-this software produces a swagger specification files that are used by the servers to define api end-points.
+this software produces a swagger specification file that is used by the servers to define api end-points.
 Generator produces source code to satisfy CRUD operations over the generated APIs. In Addition, specification files
 can render to server user interfaces from APIs
 
@@ -42,7 +42,9 @@ make run-docker
 
 This instruction will open a bash command-line inside a docker-container
 with this project mounted as current workspace, so user can start to generate
-services. **Note**: Port bind is setup for range 3000 to 3050,
+services.
+
+**Note**: Port bind is setup for range 3000 to 3050,
 so use this ports to consume your APIs. 
 
 You can build generator binary with:
@@ -51,7 +53,7 @@ You can build generator binary with:
 make build-generator
 ```
 
-Checkout generator help
+Checkout generator help:
 
 ```
 # ./generator.linux -h
@@ -93,7 +95,7 @@ Open a web browser and navigate to [http://localhost:3001/home](http://localhost
 ![Tutorial 1](resources/img/tutorial1.png)
 
 Navigate to [http://localhost:3001/api/ui/](http://localhost:3001/api/ui/) or click on **Checkout API UI** link in the **/home** path view 
-of the generated API to checkout User Interface. This UI allow to performs CRUD operations over the generated model.
+of the generated API to checkout User Interface. This UI allows to performs CRUD operations over the generated model.
 
 ![Tutorial 2](resources/img/tutorial2.png)
 
@@ -175,9 +177,7 @@ The approach to generate APIs with golang technology changes.
 ```
 
 With this technology **spec.yml** file can not be used as API routes path, so 
-this logic is generated too, checkout [Api Main Server](resources/output/go/students/server.go).
-
-In the other hand, this generator has been develop with GO, so complex models can be
+this logic is generated too, checkout [Api Main Server](resources/output/go/students/server.go). In the other hand, this generator has been develop with GO, so complex models can be
 natively generated, checkout [Generated Complex Model](resources/output/go/students/model/model.go)
 
 To run students API go based: 
