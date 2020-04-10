@@ -9,7 +9,7 @@ const api = require('./api')
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
-const index = (req, res) => {
+const home = (req, res) => {
     res.writeHead(200, {
         'Content-Type': 'text/html'
     });
@@ -32,7 +32,7 @@ const makeApp = () => {
     app.use('/api/ui', swaggerUi.serve, swaggerUi.setup(apiDefinition));
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
-    app.use("/",index);
+    app.use("/home",home);
     connect(app);
     return app
 };

@@ -17,8 +17,8 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - name: Push image
         run: |
-          IMAGE_NAME=$(echo ${{ github.repository }} | sed -e 's/\//./')
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_NAME=$(echo dlps | sed -e 's/\//./')
+          IMAGE_ID=docker.pkg.github.com/dlps/$IMAGE_NAME
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           # Strip "v" prefix from tag name

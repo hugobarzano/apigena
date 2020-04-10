@@ -10,7 +10,7 @@ build-generator:
 test:
 	chmod +x bin/_test.sh
 	bin/_test.sh
-run:
+run-docker:
 	chmod +x bin/_run.sh
 	bin/_run.sh
 clean:

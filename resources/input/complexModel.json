@@ -1,0 +1,15 @@
+{
+  "name":"Cesar Hugo",
+  "age":26,
+  "car":true,
+  "address":{
+    "street":"rivadavia",
+    "city":"Granada",
+    "number":4
+  },
+  "hobbies":[
+    "tech",
+    "music",
+    "animals"
+  ]
+}

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 DOCKER_IMAGE="generative-env:latest"
+#DOCKER_IMAGE="hugobarzano/dlps:latest"
 DOCKER_IN_DOCKER="-v /var/run/docker.sock:/var/run/docker.sock"
 ENTRYPOINT="/bin/bash"
 WORKSPACE="/var/data/"
