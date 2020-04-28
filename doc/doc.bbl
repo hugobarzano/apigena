@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{spec}
+S.~Software, \href{https://swagger.io/docs/specification/about/}{What is
+  openapi?}
+\newline\urlprefix\url{https://swagger.io/docs/specification/about/}
+
+\bibitem{openapi}
+S.~Software,
+  \href{https://github.com/openapitools/openapi-generator}{Openapitools/openapi-generator}.
+\newline\urlprefix\url{https://github.com/openapitools/openapi-generator}
+
+\bibitem{swagger}
+S.~Software,
+  \href{https://github.com/swagger-api/swagger-codegen}{swagger-api/swagger-codegen}.
+\newline\urlprefix\url{https://github.com/swagger-api/swagger-codegen}
+
+\bibitem{lucy}
+L.~Inc, \href{http://docs.lucybot.com/Introduction}{Lucybot docs}.
+\newline\urlprefix\url{http://docs.lucybot.com/Introduction}
+
+\bibitem{widdershins}
+Mermade, \href{https://github.com/mermade/widdershins}{Mermade/widdershins}.
+\newline\urlprefix\url{https://github.com/mermade/widdershins}
+
+\end{thebibliography}
