@@ -1,12 +1,12 @@
 # APIGENA
 
 ## Description
-Api Rest generation as product software line. 
+Api Rest generation as product software line.
 
- 
-This project aims to API/Rest generation from a data model represented with a json 
+
+This project aims to API/Rest generation from a data model represented with a json
 file format. This generator is developed with golang using interfaces and templates engine.
-Can produce API/Rest services in Go, JavaScript and Python technologies. 
+Can produce API/Rest services in Go, JavaScript and Python technologies.
 
 
 From a high-level representation model like this:
@@ -46,7 +46,7 @@ with this project mounted as the current workspace, so the user can start to gen
 services.
 
 **Note**: Port bind is setup for range 3000 to 3050,
-so use this ports to consume your APIs. 
+so use this ports to consume your APIs.
 
 You can build generator binary with:
 
@@ -70,12 +70,12 @@ Usage of ./generator.linux:
   -tech string
         Technology to generate: go, python, js (default "go")
 
-``` 
+```
 
 In order to use generator capabilities, start generating a javascript API, but
-in the same way you can work with python or golang: 
+in the same way you can work with python or golang:
 
-``` 
+```
 # ./generator.linux -input resources/input/fruits.json \
                     -output resources/output/ \
                     -name fruits \
@@ -83,19 +83,19 @@ in the same way you can work with python or golang:
                     -tech js
 ```
 
-Generated source code can be found withing **resources/output/js/fruits** folder. To run this API: 
+Generated source code can be found withing **resources/output/js/fruits** folder. To run this API:
 
-``` 
+```
 # cd resources/output/js/fruits/
-# npm install   // Install API dependencies 
+# npm install   // Install API dependencies
 # node server.js  // run API
 ```
- 
+
 Open a web browser and navigate to [http://localhost:3001/home](http://localhost:3001/home)
 
 ![Tutorial 1](resources/img/tutorial1.png)
 
-Navigate to [http://localhost:3001/api/ui/](http://localhost:3001/api/ui/) or click on **Checkout API UI** link in the **/home** path view 
+Navigate to [http://localhost:3001/api/ui/](http://localhost:3001/api/ui/) or click on **Checkout API UI** link in the **/home** path view
 of the generated API to checkout User Interface. This UI allows to performs CRUD operations over the generated model.
 
 ![Tutorial 2](resources/img/tutorial2.png)
@@ -110,10 +110,10 @@ of the generated API to checkout User Interface. This UI allows to performs CRUD
     ![Tutorial 6](resources/img/tutorial6.png)
 - Delete one fruit by ID (auto-generated field)
     ![Tutorial 7](resources/img/tutorial7.png)
-    
+
 
 Generated resources:
-  
+
 - [API Specification and Model](resources/output/js/fruits/spec/spec.yml)
 - [API Main Server](resources/output/js/fruits/server.js)
 - [API Source Code](resources/output/js/fruits/api/index.js)
@@ -122,7 +122,7 @@ Generated resources:
 
 
 You can use **python** as technology:
-``` 
+```
 # ./generator.linux -input resources/input/fruits.json \
                     -output resources/output/ \
                     -name fruits \
@@ -130,7 +130,7 @@ You can use **python** as technology:
                     -tech python
 ```
 
-and checkout the generated resources: 
+and checkout the generated resources:
 
 - [API Specification and Model](resources/output/python/fruits/spec/spec.yml)
 - [API Main Server](resources/output/python/fruits/server.py)
@@ -138,11 +138,11 @@ and checkout the generated resources:
 - [Home View](resources/output/python/fruits/templates/index.html)
 - [API Dependencies: requirements.txt](resources/output/python/fruits/requirements.txt)
 
-To run fruits API python based: 
+To run fruits API python based:
 
-``` 
+```
 # cd resources/output/python/fruits
-# pip install -r requirements.txt   // Install API dependencies 
+# pip install -r requirements.txt   // Install API dependencies
 # python server.py  // Run API
 ```
 Open a web browser and navigate to [http://localhost:3002/home](http://localhost:3002/home)
@@ -169,7 +169,7 @@ From a high-level representation model like this:
 ```
 The approach to generate APIs with golang technology changes.
 
-``` 
+```
 # ./generator.linux -input resources/input/complexModel.json \
                     -output resources/output/ \
                     -name students \
@@ -177,23 +177,23 @@ The approach to generate APIs with golang technology changes.
                     -tech go
 ```
 
-With this technology **spec.yml** file can not be used as API routes path, so 
+With this technology **spec.yml** file can not be used as API routes path, so
 this logic is generated too, checkout [Api Main Server](resources/output/go/students/server.go). In the other hand, this generator has been developed with GO, so complex models can be
 natively generated, checkout [Generated Complex Model](resources/output/go/students/model/model.go)
 
-To run students API go based: 
+To run students API go based:
 
-``` 
+```
 # cd resources/output/go/students
 # go run server.go  // Run API
 ```
 
-In addition, swagger and the generated spec file can be used to produces others resources or 
-customize generated base code. Checkout [Swagger documentation](https://swagger.io/). 
+In addition, swagger and the generated spec file can be used to produces others resources or
+customize generated base code. Checkout [Swagger documentation](https://swagger.io/).
 
 ##### Documentation
 
-- [Rest && Test Generator](https://github.com/hugobarzano/restandtestgenerator)
+- [Documentation with LaTex](https://github.com/hugobarzano/apigena/blob/master/doc/doc.pdf)
 <br>
 
 ##### Related works
