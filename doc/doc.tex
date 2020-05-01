@@ -6,6 +6,7 @@
 \usepackage{listings-golang} 
 \usepackage{color}
 \usepackage{url}
+\usepackage{hyperref}
 \def\UrlFont{\rmfamily}
 
 
@@ -15,7 +16,7 @@
     basicstyle=\footnotesize,
     keywordstyle=\color{red},
     numbers=left,
-    numbersep=5pt,
+    numbersep=9pt,
     showstringspaces=false, 
     stringstyle=\color{blue},
     tabsize=4,
@@ -30,9 +31,7 @@
 
 \title{APIGENA: Generación de APIs como linea de productos software}
 
-\titlerunning{ APIGENA }  % abbreviated title (for running head)
-%                                     also used for the TOC unless
-%                                     \toctitle is used
+\titlerunning{ APIGENA }  
 \author{César Hugo Bárzano Cruz\inst{1} }
 
 \institute{UNED,\\
@@ -57,7 +56,7 @@ El problema que aquí se propone consiste en ¿ Como generalizar y automatizar e
 ¿ Es posible abordar el problema para producir APIs en distintos lenguajes de programación? 
 
 \subsection{Estado del Arte}
-Actualmente existen herramientas capaces de facilitar y automatizar el proceso de desarrollo de APIs mediante un enfoque generativo. Las  herramientas que se proponen a continuación tiene en común el uso de  una especificación OpenAPI\cite{spec} que permite describir APIs para ser usadas posteriormente a la hora de producir, consumir y visualizar servicios web. Por otro lado tambien se proponen algunas herramientas las cuales son capaces de dada una especificación de API son capaces de generar documentación e interfaz de usuario asociada. Todas las herramientas propuestas son de naturaleza Open-Source. Existen otros tipos de especificación que son igual de validos, como por ejemplo:
+Actualmente existen herramientas capaces de facilitar y automatizar el proceso de desarrollo de APIs mediante un enfoque generativo. Las  herramientas que se proponen a continuación tiene en común el uso de  una especificación OpenAPI\cite{spec} que permite describir APIs para ser usadas posteriormente a la hora de producir, consumir y visualizar servicios web. Por otro lado tambien se proponen algunas herramientas las cuales son capaces de dada una especificación de API generar documentación e interfaz de usuario asociada. Todas las herramientas propuestas son de naturaleza Open-Source. Existen otros tipos de especificación que son igual de validos, como por ejemplo:
 
 
 \begin{itemize}
@@ -125,9 +124,11 @@ Como parte adicional, el generador incluye una imagen Docker para facilitar la p
 
 \section{Implementación}
 
-El generador que aquí se plantea ha sido desarrollado utilizando GO como lenguaje de programación. De este lenguaje se aprovecha el uso de interfaces y  su motor de templates que facilita la generación del código fuente.  
+El generador que aquí se plantea ha sido desarrollado utilizando GO como lenguaje de programación. De este lenguaje se aprovecha el uso de interfaces y  su motor de plantillas que facilita en gran medida la generación del código fuente.  
 
-\subsection{Interface}
+\subsection{Generator Interface}
+
+En esta sección se presenta la interfaz definida para el generador de APIs.
 
 \begin{lstlisting}
 // Generator interface definition
@@ -141,20 +142,77 @@ type Generator interface {
 }
 \end{lstlisting}
 
+La estrategia a seguir es que cada uno de los lenguajes de programación soportados por el generador implementa todas las funciones definidas en la interfaz, caracterizando y adecuando cada caso según las propiedades de dicha tecnología. De manera general, el comportamiento esperado a implementar por cada una de las funciones que describen la interfaz es:
+
+ \begin{itemize}
+ \item \textbf{Init() Generator} 	$\Rightarrow$ Inicializa las estructuras de datos internas del generador. 
+ \item \textbf{WithName(name string) Generator} Establece el nombre de la API. Este valor es utilizado para nombrar las entidades, los modelos de datos y las rutas de la API. 
+
+ \item \textbf{WithPort(port int) Generator} $\Rightarrow$  Establece el puerto de servicio donde la API será expuesta. 
+ 
+ \item \textbf{WithInputSpec(spec interface{}) Generator} $\Rightarrow$  Establece la especificación del modelo de negocio usado como entrada para definir la API. Como se indicó anteriormente, este modelo de negocio especifico de dominio se presenta en formato JSON. En la definición de este método se ha optado por definir utilizando la primitiva interface para soportar a futuro distintos tipos de especificación o DSL. Esta función extrae y transforma la información del modelo de datos para su posterior generación. 
+ 
+ \item \textbf{WithOutputPath(path string) Generator} $\Rightarrow$  Establece la ruta de salida y crea la jerarquía de directorios donde es  producido el código fuente.  Dicha jerarquía es variable en función de la tecnológia que se quiere producir como salida. 
+ 
+ \item \textbf{Generate()} $\Rightarrow$ Produce el código fuente mediante llamadas al motor de plantillas correspondiente a la tecnología que se esté implementando. 
+ \end{itemize}
+
+Las diversas implementaciones de la interfaz  para cada una de las tecnologías soportadas son las siguientes: 
+
+\begin{itemize}
+\item \href{https://github.com/hugobarzano/apigena/blob/master/gen/internal/core/go.go}{Golang Generator} 
+\item \href{https://github.com/hugobarzano/apigena/blob/master/gen/internal/core/python.go}{Python Generator} 
+\item \href{https://github.com/hugobarzano/apigena/blob/master/gen/internal/core/js.go}{JavaScript Generator} 
+\end{itemize}
+
+De esta forma se pone de manifiesto que la integración en el generador de nuevas tecnologías es trivial, es decir, una nueva tecnología supone una nueva implementación de la interfaz aquí propuesta. 
+
 
 \subsection{Template Engine}
 
+Otra de las ventajas que aporta GO como lenguaje de programación a la hora de implementar software generativo es su motor de plantillas, ya que permite producir ficheros desde distintos tipos de estructuras de datos e incluso añadir lógica adicional ( como condicionales o iteradores ) dentro de la propia plantilla. 
+En este proyecto se usan los siguientes tipos de plantillas, ordenadas de menor a mayor complejidad: 
+\begin{itemize}
+\item \textbf{Plantilla Constante}  $\Rightarrow$ Se caracteriza por ser el tipo base de plantilla en la que no se realiza ningún tipo de sustitución o transformación. 
+\item \textbf{ Plantilla Simple}  $\Rightarrow$ Se caracteriza por ser el tipo de plantilla básico en la que se realiza la sustitución de un tipo de dato básico ( escalar), por ejemplo una cadena de texto o un entero. 
+\item \textbf{ Plantilla Intermedia}  $\Rightarrow$ Se caracteriza por usar estructuras de datos definidas en la librería estándar del lenguaje  como pueden ser los mapas clave:valor o las listas de elementos. 
+\item \textbf{Plantilla Compleja} $\Rightarrow$ Se caracteriza por usar estructuras de datos complejas para producir resultados, por ejemplo: 
+\end{itemize}
+\begin{lstlisting}
+
+	tpl, err := template.New("Spec").Parse(SpecTemplate)
+	var output bytes.Buffer
+	
+	input := ApiSpec{
+		Title:     getTitle(name),
+		ApiName:   getApiName(name),
+		ModelName: getModelName(name),
+		ApiPkg:    pkg,
+		ModelData: string(generateModelProperties(data)),
+	}
+
+	err = tpl.Execute(&output, input)
+	output.Bytes()
+\end{lstlisting}
+
+Este ejemplo muestra como la estructura de datos compleja  \textbf{ ApiSpec} es utilizada para ejecutar la plantilla \textbf{SpecTemplate} y expresar su resultado en forma de Array de bytes. La plantilla  \href{https://github.com/hugobarzano/apigena/blob/master/gen/internal/core/commons/defineSpecTemplate.go}{SpecTemplate}  puede ser consultada en el repositorio del proyecto. 
+
 
 \section{Caso de Uso}
+
+A modo de ejemplos y con el objetivo de mostrar la capacidad generativa de este proyecto sobre las distintas tecnologías soportadas, se ha redactado un caso de uso que puede ser consultado en el \href{https://github.com/hugobarzano/apigena/blob/master/README.md
+}{README} del repositorio del proyecto. 
 \section{Trabajos Futuros}
 
-En el campo de la robótica, la percepción del entorno donde estos agentes han de desempeñar ciertas tareas es parcial, el entorno es cambiante, los sensores que utilizan pueden sufrir variaciones y las tareas a realizar pueden no estar especificadas de ante mano. 
+Como trabajos futuros o posibles extensiones que pueden alcanzarse tomando como referencia este proyecto, se destacan los siguientes puntos. 
+
+\subsection{Tecnologías Soportadas}
+Se propone como mejora el soporte a  mas tecnologías para la generación de APIs. Estas tecnologías podrían ser por ejemplo Ruby on Rails, PHP, Perl o Scala. La idea consiste en implementar la interfaz del generador para estas tecnologías y la integración de los módulos correspondientes en el motor de plantillas. 
+\subsection{Especificaciones de API}
+Como se ha visto, este proyecto soportar como entrada modelos de negocio ( específicos de dominio) en formato JSON y se propone como mejora la generalización de esta entrada para soportar distintos tipos de formatos como por ejemplo XML o YML. 
+
+Por otra parte,  también se propone mejorar la generación de la especificación de API. Actualmente el tipo de especificación que produce este proyecto es del tipo  Swagger 2.0  y por ello se propone generar especificaciones de otras naturalezas como  API Blueprint, WSDL o RAML. 
 
 \bibliographystyle{elsarticle-num}
 \bibliography{ref/references}
-
-\paragraph{Notas y Comentarios.}
-Esta entrega es una tentativa de lo que será el trabajo completo. Con ella, se espera un pequeña aproximación de lo que será
-
-
 \end{document}

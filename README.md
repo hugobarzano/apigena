@@ -1,14 +1,15 @@
-# LProductosSoftware
+# APIGENA
 
 ## Description
-Desarrollo De Lineas De Producto Software.
+Api Rest generation as product software line. 
+
  
 This project aims to API/Rest generation from a data model represented with a json 
-file format. This generator is develop with golang using interfaces and templates engine.
+file format. This generator is developed with golang using interfaces and templates engine.
 Can produce API/Rest services in Go, JavaScript and Python technologies. 
 
 
-From a high level representation model like this:
+From a high-level representation model like this:
 ```
 {
    "type":"Apple",
@@ -18,7 +19,7 @@ From a high level representation model like this:
 }
 ```
 
-This software produces a swagger specification file that is used by the servers to define api end-points.
+This software produces a swagger specification file that is used by the servers to define API end-points.
 Generator produces source code to satisfy CRUD operations over the generated APIs. In Addition, specification files
 can render to server user interfaces from APIs
 
@@ -30,8 +31,8 @@ Clone this source code repository:
 git clone http://git.git
 ```
 
-Open generator environment docker based. Dockerfile is provide with all dependencies requires to
-generate and run Api-Rest services, so user requires Docker engine installed in his default operating system.
+Open generator environment docker based. Dockerfile is provided with all dependencies requires to
+generate and run Rest services, so user requires Docker engine installed in his default operating system.
 This docker image is available at [DockerHub](https://hub.docker.com/r/hugobarzano/dlps). You can start working
 executing:
 
@@ -41,7 +42,7 @@ make run-docker
 ```
 
 This instruction will open a bash command-line inside a docker-container
-with this project mounted as current workspace, so user can start to generate
+with this project mounted as the current workspace, so the user can start to generate
 services.
 
 **Note**: Port bind is setup for range 3000 to 3050,
@@ -71,7 +72,7 @@ Usage of ./generator.linux:
 
 ``` 
 
-In order to use generator capabilities you can start generating a javascript API but
+In order to use generator capabilities, start generating a javascript API, but
 in the same way you can work with python or golang: 
 
 ``` 
@@ -113,11 +114,11 @@ of the generated API to checkout User Interface. This UI allows to performs CRUD
 
 Generated resources:
   
-- [Api Specification and Model](resources/output/js/fruits/spec/spec.yml)
-- [Api Main Server](resources/output/js/fruits/server.js)
-- [Api Source Code](resources/output/js/fruits/api/index.js)
+- [API Specification and Model](resources/output/js/fruits/spec/spec.yml)
+- [API Main Server](resources/output/js/fruits/server.js)
+- [API Source Code](resources/output/js/fruits/api/index.js)
 - [Home View](resources/output/js/fruits/templates/index.html)
-- [Api Dependencies: package.json](resources/output/js/fruits/package.json)
+- [API Dependencies: package.json](resources/output/js/fruits/package.json)
 
 
 You can use **python** as technology:
@@ -129,13 +130,13 @@ You can use **python** as technology:
                     -tech python
 ```
 
-and checkout generated resources: 
+and checkout the generated resources: 
 
-- [Api Specification and Model](resources/output/python/fruits/spec/spec.yml)
-- [Api Main Server](resources/output/python/fruits/server.py)
-- [Api Source Code](resources/output/python/fruits/api.py)
+- [API Specification and Model](resources/output/python/fruits/spec/spec.yml)
+- [API Main Server](resources/output/python/fruits/server.py)
+- [API Source Code](resources/output/python/fruits/api.py)
 - [Home View](resources/output/python/fruits/templates/index.html)
-- [Api Dependencies: requirements.txt](resources/output/python/fruits/requirements.txt)
+- [API Dependencies: requirements.txt](resources/output/python/fruits/requirements.txt)
 
 To run fruits API python based: 
 
@@ -148,7 +149,7 @@ Open a web browser and navigate to [http://localhost:3002/home](http://localhost
 
 ### Working with Golang: Complex Data models
 
-From a high level representation model like this:
+From a high-level representation model like this:
 ```
 {
    "name":"Cesar Hugo",
@@ -177,7 +178,7 @@ The approach to generate APIs with golang technology changes.
 ```
 
 With this technology **spec.yml** file can not be used as API routes path, so 
-this logic is generated too, checkout [Api Main Server](resources/output/go/students/server.go). In the other hand, this generator has been develop with GO, so complex models can be
+this logic is generated too, checkout [Api Main Server](resources/output/go/students/server.go). In the other hand, this generator has been developed with GO, so complex models can be
 natively generated, checkout [Generated Complex Model](resources/output/go/students/model/model.go)
 
 To run students API go based: 
@@ -187,9 +188,13 @@ To run students API go based:
 # go run server.go  // Run API
 ```
 
-In addition, swagger and the generated spec file can be used to produces another resources or 
+In addition, swagger and the generated spec file can be used to produces others resources or 
 customize generated base code. Checkout [Swagger documentation](https://swagger.io/). 
 
+##### Documentation
+
+- [Rest && Test Generator](https://github.com/hugobarzano/restandtestgenerator)
+<br>
 
 ##### Related works
 
