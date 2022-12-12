@@ -15,7 +15,7 @@
   "author": "bot-generator",
   "license": "Apache-2.0",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "fs": "0.0.1-security",
     "swagger-routes-express": "^3.1.2",
     "swagger-ui-express": "^4.1.4",
